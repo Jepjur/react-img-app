@@ -6,12 +6,12 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDpaGZfSkBqskb2yjNi4GJ3ZkjIfM8XwO0",
-  authDomain: "reactimageapp.firebaseapp.com",
-  projectId: "reactimageapp",
-  storageBucket: "reactimageapp.firebasestorage.app",
-  messagingSenderId: "581277289975",
-  appId: "1:581277289975:web:da38d30529c46a77d372f2"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
