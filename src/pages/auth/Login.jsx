@@ -1,23 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, googleProvider } from "../../firebase";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const { loginWithGoogle, setCurrentUser } = useAuth(); // get setCurrentUser to update context
+  const { loginWithEmail, loginWithGoogle } = useAuth(); // no need to call setCurrentUser
   const navigate = useNavigate();
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     setError(null);
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      setCurrentUser(userCredential.user);  // update user in context
-      navigate("/"); // Redirect to home or dashboard
+      await loginWithEmail(email, password); // now handled by context
+      navigate("/");
     } catch (err) {
       setError(err.message);
     }
@@ -26,8 +23,7 @@ export default function Login() {
   const handleGoogleLogin = async () => {
     setError(null);
     try {
-      const userCredential = await loginWithGoogle();
-      setCurrentUser(userCredential.user); // update user in context
+      await loginWithGoogle(); // context already sets currentUser
       navigate("/");
     } catch (error) {
       setError(error.message);

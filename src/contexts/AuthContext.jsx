@@ -29,7 +29,11 @@ export function AuthProvider({ children }) {
   }, []);
 
   // Sign in with Google
-  const loginWithGoogle = () => signInWithPopup(auth, googleProvider);
+ const loginWithGoogle = async () => {
+  const result = await signInWithPopup(auth, googleProvider);
+  setCurrentUser(result.user);  // centralized state update
+  return result;
+};
 
   // Sign in with email & password
   const loginWithEmail = (email, password) =>
@@ -42,13 +46,14 @@ export function AuthProvider({ children }) {
   // Logout
   const logout = () => signOut(auth);
 
-  const value = {
-    currentUser,
-    loginWithGoogle,
-    loginWithEmail,
-    signupWithEmail,
-    logout,
-  };
+const value = {
+  currentUser,
+  setCurrentUser,     // <-- Add this line
+  loginWithGoogle,
+  loginWithEmail,
+  signupWithEmail,
+  logout,
+};
 
   return (
     <AuthContext.Provider value={value}>
