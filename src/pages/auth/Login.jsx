@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const { loginWithEmail, loginWithGoogle } = useAuth(); // no need to call setCurrentUser
+  const { loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     setError(null);
     try {
-      await loginWithEmail(email, password); // now handled by context
+      await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -23,50 +25,51 @@ export default function Login() {
   const handleGoogleLogin = async () => {
     setError(null);
     try {
-      await loginWithGoogle(); // context already sets currentUser
+      await loginWithGoogle();
       navigate("/");
-    } catch (error) {
-      setError(error.message);
-      console.error(error);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
-  return (
-    <div style={{ maxWidth: "400px", margin: "4rem auto", padding: "2rem", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h2 style={{ marginBottom: "1.5rem" }}>Login</h2>
+return (
+  <div className="login-page-wrapper">
+    <div className="login-wrapper">
+      <div className="login-left">
+        <h2>Welcome back!</h2>
+        <p>Sign in to access your dashboard.</p>
+      </div>
+      <div className="login-right">
+        {error && <p className="login-error">{error}</p>}
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        <form onSubmit={handleEmailLogin} className="login-form">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="login-input"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="login-input"
+          />
+          <button type="submit" className="login-button">Login</button>
+        </form>
 
-      <form onSubmit={handleEmailLogin} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          style={{ padding: "0.5rem", fontSize: "1rem" }}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          style={{ padding: "0.5rem", fontSize: "1rem" }}
-        />
-        <button type="submit" style={{ padding: "0.75rem", background: "#2563eb", color: "white", border: "none", borderRadius: "4px" }}>
-          Login
+        <hr className="login-divider" />
+
+        <button onClick={handleGoogleLogin} className="google-button">
+          Continue with Google
         </button>
-      </form>
-
-      <hr style={{ margin: "2rem 0" }} />
-
-      <button
-        onClick={handleGoogleLogin}
-        style={{ padding: "0.75rem", background: "#db4437", color: "white", border: "none", borderRadius: "4px", width: "100%" }}
-      >
-        Continue with Google
-      </button>
+      </div>
     </div>
-  );
+  </div>
+);
+
 }
