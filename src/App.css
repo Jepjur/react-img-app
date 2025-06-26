@@ -38,6 +38,15 @@ body {
   cursor: pointer;
 }
 
+.login-icon svg {
+  vertical-align: middle;
+  transition: opacity 0.2s ease;
+}
+
+.login-icon:hover svg {
+  opacity: 0.85;
+}
+
 /* Base nav styling already exists, just prepare for mobile toggle */
 .nav-links {
   display: flex;

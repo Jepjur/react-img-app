@@ -9,11 +9,6 @@ import Contact from "./pages/site/Contact";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 
-<>
-  <Route path="login" element={<Login />} />
-  <Route path="signup" element={<Signup />} />
-</>
-
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -41,6 +36,11 @@ const Header = () => {
         </Link>
         <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>
           Contact
+        </Link>
+        <Link to="/login" className="nav-link login-icon" onClick={() => setIsMenuOpen(false)} aria-label="Login">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="white" viewBox="0 0 24 24">
+            <path d="M10.6 16.6 9.5 15.5l2.6-2.6H3v-1.5h9.1L9.5 8.8l1.1-1.1 4.3 4.3-4.3 4.3Zm8.9 4.9H12v-1.5h7.5v-16H12V2h7.5q.625 0 1.063.438Q21 2.875 21 3.5v17q0 .625-.437 1.063-.438.437-1.063.437Z" />
+          </svg>
         </Link>
       </nav>
     </header>
@@ -100,6 +100,8 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
         <Footer />
         <ScrollToTopButton />
