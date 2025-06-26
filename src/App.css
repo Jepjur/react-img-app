@@ -1,0 +1,237 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* App.css */
+.app-container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  background-color: #2563eb;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 1.25rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Base nav styling already exists, just prepare for mobile toggle */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 0.85;
+}
+
+.main-content {
+  flex: 1;
+   padding-bottom: 5rem;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding-top: clamp(2rem, 3vw, 4rem);
+  padding-bottom: 5rem;
+}
+
+.content-layout {
+  display: flex;
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.page-content {
+  padding: 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+  padding-bottom: 6rem; /* Add this */
+}
+
+.card {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.card-image {
+  width: 100%;
+  aspect-ratio: 2 / 1; /* for 400x200 */
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin-top: 0.75rem;
+  background-color: #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.card-image:hover {
+  transform: scale(1.02);
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f3f4f6;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+  padding: 1rem;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 5rem;
+  right: 1.5rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 2rem;
+  font-weight: 700;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-to-top:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .content-layout {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .main-grid {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .header {
+    font-size: 1.25rem;
+  }
+
+  .content-layout {
+    padding: 1rem;
+  }
+
+  .card {
+    padding: 0.75rem;
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hamburger {
+    display: block;
+  }
+
+.nav-links {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+
+    /* Animation setup */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: max-height 0.12s ease-out, opacity 0.2s ease-in, transform 0.2s ease-out;
+  }
+
+  .nav-links.open {
+    display: flex;
+    max-height: 500px; /* large enough to contain all links */
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nav-links a {
+    padding: 0.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .footer {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+  }
+}
